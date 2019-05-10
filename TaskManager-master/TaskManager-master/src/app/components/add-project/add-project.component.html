@@ -1,0 +1,109 @@
+<div class="container">
+    <form #projectForm="ngForm" >
+        <div class="row" style="margin : 3px;">
+        <div class="col-sm-3" >
+            <label for="task"><b>Project</b></label>
+        </div>
+        <div class="col-sm-6">
+            <input class="form-control" type="text" placeholder="Enter Project" name="project" [(ngModel)]="project.project" required>
+        </div>
+      </div>
+      <div class="row" style="margin : 3px;">
+          <div class="col-sm-3" style="    margin: 35px 0px 35px 0px;">
+              <input type="checkbox" name="date" value="Yes" [(ngModel)]="dateCheck"> Set Start and End Date<br>
+          </div>
+          <div class="col-sm-3" [hidden]="!dateCheck"> 
+              <label for="task"><b>Start Date</b></label>
+              <input class="form-control" type="date" placeholder="start date" name="strtDate" [(ngModel)]="project.startDate" required>
+            </div>
+          <div class="col-sm-3" [hidden]="!dateCheck">
+              <label for="task"><b>End Date</b></label>
+              <input class="form-control" type="date" placeholder="start date" name="endDate" [(ngModel)]="project.endDate" required>
+            </div>
+        </div>
+      <div class="row" style="margin : 3px;">
+          <div class="col-sm-3">
+              <label for="priority"><b>Priority</b></label>
+          </div>
+          <div class="col-sm-6">
+
+              <input type="range" min="1" max="30" value="1" class="slider" name="priority" [(ngModel)]="project.priority" required>
+                        </div>
+            <div class="col-sm-3">
+                <p style="padding: 10px;font-size: 13px;">{{project.priority}}</p>
+            </div>
+        </div>
+        <div class="row" style="margin : 3px;">
+            <div class="col-sm-3">
+                <label for="task"><b>Manager</b></label>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" [(ngModel)]="project.manager" name="manager" *ngIf="modalOpened" disabled>
+              
+            </div>
+            <div class="col-sm-3">
+                <input type="submit" value="Search" (click)="openModal()">
+                <!-- <ngbd-modal-basic></ngbd-modal-basic> -->
+            </div>
+          </div>
+
+          <div class="row" style="margin : 3px;">
+              <div class="col-sm-3">
+                  <input type="submit" value="Add Project" (click)="addProject()">
+              </div>
+              <div class="col-sm-3">
+                  <input type="submit" (click)="projectForm.reset()" value="Reset">
+                </div>
+            </div>
+  </form>
+  <hr>
+  <div class="row" style="margin : 3px;">
+      <div class="col-sm-10">
+          <input class="form-control" type="text" placeholder="Search" name="search" required>
+      </div>
+      
+    </div>
+    <div class="row" style="margin : 3px;">
+        <div class="col-sm-2">
+            <label >Sort By:</label>
+          </div>
+        <div class="col-sm-2">
+            <input type="submit" value="Start Date" (click)="orderByStartDate()">
+          </div>
+          <div class="col-sm-2">
+              <input type="submit" value="End Date" (click)="orderByEndDate()">
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" value="Priority" (click)="orderByPriority()">
+              </div>
+              <div class="col-sm-2">
+                  <input type="submit" value="Completed">
+                </div>
+    </div>
+    <hr class="dot">
+    <ul class="list-group">
+            <li class="list-group-item" *ngFor="let project of projects">
+                    <div class="row">
+                    <div class="col-sm-10 rowColor" > <span><b>Project :</b> {{project.project}}</span></div>
+                    <div class="col-sm-2"><input type="submit"  value="Edit" (click)="editProject(project)" style="margin-bottom:3px;"></div>
+                    </div>
+                    <div class="row">
+                           
+                        <div class="col-sm-5 rowColor"> <span><b>No Of Tasks :</b> </span></div>
+                        <div class="col-sm-5 rowColor"><span><b>Completed :</b> </span></div>
+                        <div class="col-sm-2"><input type="submit" value="Delete" (click)="deleteproject(project)"></div>
+       
+                    </div>
+                    <div class="row">
+                           
+                        <div class="col-sm-4 rowColor"> <span><b>StartDate :</b> {{project.startDate}}</span></div>
+                        <div class="col-sm-4 rowColor"><span><b>EndDate :</b> {{project.endDate}}</span></div>
+                        <div class="col-sm-2 rowColor"><span><b>Priority : </b>{{project.priority}}</span></div>
+
+                    </div>
+                    
+                
+            </li>
+            
+        </ul>
+</div>

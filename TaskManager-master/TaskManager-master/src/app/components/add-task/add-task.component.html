@@ -1,0 +1,31 @@
+
+<div class="container">
+<form #myform="ngForm" >
+    <label for="task"><b>Task</b></label>
+    <input class="form-control" type="text" placeholder="Add Task" name="task" [(ngModel)]="task.task" required>
+
+    <label for="priority"><b>Priority</b></label> 
+    <p style="padding: 10px;font-size: 13px;">{{task.priority}}</p>
+    <input type="range" min="1" max="30" value="1" class="slider" name="priority" [(ngModel)]="task.priority" required>
+    
+    <label for="prntTask"><b>Parent Task</b></label>
+  
+    <input   class="form-control" type="text" placeholder="Enter Parent Task" name="parentTask" [(ngModel)]="task.parent.parentTask" required> 
+    
+<div class="form-group">
+    <label for="strtDate"><b>Start Date</b></label>
+    <input class="form-control" type="date" placeholder="start date" name="strtDate" [(ngModel)]="task.startDate" required>
+  </div>
+  <div class="form-group">
+    <label for="endDate"><b>End Date</b></label>
+    <input class="form-control" type="date" placeholder="end date" name="endDate" [(ngModel)]="task.endDate" required>
+  </div>
+    <hr>
+   
+    <input type="submit" value="Add Task" (click)="addTask()">
+    <input type="submit" (click)="myform.reset()" value="Reset" style="margin-left: 20px;">
+  </form>
+
+  </div>
+
+  

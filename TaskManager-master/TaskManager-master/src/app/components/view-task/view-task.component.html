@@ -1,0 +1,65 @@
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-6">
+        
+            <label for="task"><b>Task</b></label>
+            <input type="text" class="form-control" placeholder="Task" name="task" [(ngModel)]="taskSrch" required>
+          
+        </div>
+        <div class="col-sm-6">
+            <label for="task"><b>Parent Task</b></label>
+            <input type="text" class="form-control" placeholder="Parent Task" name="parentTask" [(ngModel)]="prntTaskSrch" required>
+        </div>
+        
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+        
+            <label for="task"><b>Priority From</b></label>
+            <input type="text" class="form-control" placeholder="Priority From" name="priorFrom" [(ngModel)]="priorityFrmSrch" required>
+          
+        </div>
+        <div class="col-sm-3">
+            <label for="task"><b>Priority To</b></label>
+            <input type="text" class="form-control" placeholder="Priority to" name="priorTo" [(ngModel)]="priorityToSrch" required>
+        </div>
+        <div class="col-sm-3">
+            <label for="task"><b>Start Date</b></label>
+            <input type="date" class="form-control" placeholder="Start Date" name="strtDate" [(ngModel)]="dateStSrch" required>
+        </div>
+        <div class="col-sm-3">
+            <label for="task"><b>End Date</b></label>
+            <input type="date" class="form-control" placeholder="end Date" name="endDate" [(ngModel)]="dateEdSrch" required>
+        </div>
+        
+      </div>
+      <hr>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Parent</th>
+            <th>Priority</th>
+            <th>Start</th>
+            <th>End</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let task of tasks | taskFilter:taskSrch :prntTaskSrch:priorityFrmSrch:priorityToSrch:dateStSrch:dateEdSrch">
+          <tr>
+            <td>{{task.task}}</td>
+            <td>{{task.parent.parentTask}}</td>
+            <td>{{task.priority}}</td>
+            <td>{{task.startDate}}</td>
+            <td>{{task.endDate}}</td>
+            <td><button type="button"  (click)="editTask(task)" [disabled]="task.deleteFlag == 1">Edit</button></td>
+            <td><button type="button"  (click)="endTask(task)" [disabled]="task.deleteFlag == 1">End Task</button></td>
+          </tr>
+         
+        </tbody>
+      </table>
+</div>

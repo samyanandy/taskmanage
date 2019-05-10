@@ -1,0 +1,90 @@
+<div class="container">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="row" style="margin : 3px;">
+        <div class="col-sm-3" >
+            <label for="task"><b>First Name</b></label>
+        </div>
+        <div class="col-sm-6">
+            <!-- <input class="form-control" type="text" placeholder="Enter First Name" name="fname" [(ngModel)]="user.fname" required> -->
+            <div class="form-group">
+                <input type="text" formControlName="fname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fname.errors }" />
+                <div *ngIf="submitted && f.fname.errors" class="invalid-feedback">
+                    <div *ngIf="f.fname.errors.required">First Name is required</div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="row" style="margin : 3px;">
+          <div class="col-sm-3">
+              <label for="task"><b>Last Name</b></label>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+                <input type="text" formControlName="lname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lname.errors }" />
+                <div *ngIf="submitted && f.lname.errors" class="invalid-feedback">
+                    <div *ngIf="f.lname.errors.required">First Name is required</div>
+                </div>
+            </div>          </div>
+        </div>
+        <div class="row" style="margin : 3px;">
+            <div class="col-sm-3">
+                <label for="task"><b>Employee ID</b></label>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" formControlName="employeeId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.employeeId.errors }" />
+                    <div *ngIf="submitted && f.employeeId.errors" class="invalid-feedback">
+                        <div *ngIf="f.employeeId.errors.required">First Name is required</div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin : 3px;">
+              <div class="col-sm-3">
+                <button class="btn btn-primary">Register</button>
+              </div>
+              <div class="col-sm-3">
+                  <input type="submit" (click)="userForm.reset()" value="Reset">
+                </div>
+            </div>
+  </form>
+  <hr>
+  <div class="row" style="margin : 3px;">
+      <div class="col-sm-5">
+          <input class="form-control" type="text" placeholder="Search" name="search" required>
+      </div>
+      <div class="col-sm-1">
+          <label for="task"><b>Sort :</b></label>
+        </div>
+      <div class="col-sm-2">
+          <input type="submit" value="First Name" (click)="orderByFname()">
+        </div>
+        <div class="col-sm-2">
+            <input type="submit" value="Last Name" (click)="orderByLname()">
+          </div>
+          <div class="col-sm-2">
+              <input type="submit" value="ID" (click)="orderByEmployeeId()">
+            </div>
+    </div>
+    <hr class="dot">
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let user of users">
+                <div class="row">
+                <div class="col-sm-8 rowColor" > <span>{{user.fname}}</span></div>
+                <div class="col-sm-4"><input type="submit"  value="Edit" (click)="editUser(user)" style="margin-bottom:3px;"></div>
+                </div>
+                <div class="row">
+                       
+                    <div class="col-sm-8 rowColor"> <span>{{user.lname}}</span></div>
+                    <div class="col-sm-4"><input type="submit" value="Delete" (click)="deleteUser(user)"></div>
+   
+                </div>
+                 <div class="row">
+                    <div class="col-sm-8 rowColor"><span>{{user.employeeId}}</span></div>
+                </div>
+            
+        </li>
+        
+    </ul>
+</div>

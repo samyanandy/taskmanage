@@ -1,0 +1,11 @@
+hr.dot {
+	border-top: 1px dashed #8c8b8b;
+}
+
+.rowColor{
+    font-size: 18px;
+    background-color: #f5f5f5;
+    width: 200px;
+    margin-bottom: 3px;
+    border-radius: 3px;
+}

@@ -17,6 +17,10 @@ public interface TaskDao extends JpaRepository<Task, Integer>{
 	@Modifying
 	@Query("UPDATE Task t set t.deleteFlag =1 WHERE t.id = ?1")
 	void updateDeleteFlag(int id);
+	
+	@Transactional
+	@Query("SELECT Count(*) from Task t where t.deleteFlag =0 and  t.id = ?1")
+	int countExistingTask(int id);
 
 	
 }

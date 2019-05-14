@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,8 +23,8 @@ public class Task implements Serializable{
 	@Column(name="task_id")
 	Integer taskId;
 	
-	@JoinColumn(name="parent_id", referencedColumnName="parent_id")
-	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="parent_id")
+	@OneToOne
 	ParentTask parent;
 	
 //	int parent_id;
@@ -42,7 +43,25 @@ public class Task implements Serializable{
 	@Column(name="delete_flag")
 	int deleteFlag;
 	
+	@JoinColumn(name="project_id")
+	@OneToOne
+	Project project;
 	
+	@Column(name="status")
+	String status;
+	
+	public Project getProject() {
+		return project;
+	}
+	public void setProject(Project project) {
+		this.project = project;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public int getDeleteFlag() {
 		return deleteFlag;
 	}

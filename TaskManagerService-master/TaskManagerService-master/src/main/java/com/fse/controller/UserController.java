@@ -33,6 +33,12 @@ public class UserController {
 		return userService.getAllUser();
 	}
 	
+	@RequestMapping(value="getDistinctUser")
+	public List<User> getDistinctUser(){
+		
+		return userService.findDistinctUser();
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value="addUser",method=RequestMethod.POST,consumes="application/json")
 	public boolean adduser(@RequestBody User user) {
@@ -79,8 +85,8 @@ public class UserController {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value="addProject",method=RequestMethod.POST,consumes="application/json")
-	public boolean addProject(@RequestBody Project project) {
-					
+	public Project addProject(@RequestBody Project project) {
+	
 		return projectService.addProject(project);
 	}
 	
@@ -104,5 +110,11 @@ public class UserController {
 	public List<Project> getAllProjectOrderByEndDate(){
 		
 		return projectService.getAllProjectOrderByEndDate();
+	}
+	
+	@RequestMapping(value="findProject/{id}")
+	public Optional<Project> findProjectById(@PathVariable int id){
+		
+		return projectService.findById(id);
 	}
 }

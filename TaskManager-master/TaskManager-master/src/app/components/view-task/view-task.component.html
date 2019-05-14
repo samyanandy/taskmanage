@@ -1,7 +1,7 @@
 
 <div class="container">
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-sm-6">
         
             <label for="task"><b>Task</b></label>
@@ -34,7 +34,31 @@
             <input type="date" class="form-control" placeholder="end Date" name="endDate" [(ngModel)]="dateEdSrch" required>
         </div>
         
-      </div>
+      </div> -->
+
+      <div class="row">
+        <div class="col-sm-2" > 
+           <input class="form-control" type="text" placeholder="Select Project" name="project" [(ngModel)]="selectProj" disabled>
+        </div>
+        <div class="col-sm-1"> 
+            <input type="submit" value="Search" style="margin-top: 10px;" (click)="openProjectModal()">
+        </div>
+        <div class="col-sm-1">
+          <label for="task"><b>Sort:</b></label>
+        </div>
+      <div class="col-sm-2">
+          <input type="submit" value="Start Date" (click)="orderByStartDate()">
+        </div>
+        <div class="col-sm-2">
+            <input type="submit" value="End Date" (click)="orderByEndDate()">
+          </div>
+          <div class="col-sm-2">
+              <input type="submit" value="Priority" (click)="orderByPriority()">
+            </div>
+            <div class="col-sm-2">
+              <input type="submit" value="Completed" (click)="orderByCompleted()">
+            </div>
+    </div>
       <hr>
 
       <table class="table">
@@ -54,10 +78,10 @@
             <td>{{task.task}}</td>
             <td>{{task.parent.parentTask}}</td>
             <td>{{task.priority}}</td>
-            <td>{{task.startDate}}</td>
-            <td>{{task.endDate}}</td>
-            <td><button type="button"  (click)="editTask(task)" [disabled]="task.deleteFlag == 1">Edit</button></td>
-            <td><button type="button"  (click)="endTask(task)" [disabled]="task.deleteFlag == 1">End Task</button></td>
+            <td>{{task.startDate | date:'dd-MM-yyyy'}}</td>
+            <td>{{task.endDate | date:'dd-MM-yyyy'}}</td>
+            <td><button type="button"  (click)="editTask(task)" [disabled]="task.status == 1">Edit</button></td>
+            <td><button type="button"  (click)="endTask(task)" [disabled]="task.status == 1">End Task</button></td>
           </tr>
          
         </tbody>

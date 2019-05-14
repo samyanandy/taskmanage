@@ -24,6 +24,7 @@ import com.fse.dao.ParentTaskDao;
 import com.fse.dao.TaskDao;
 import com.fse.model.ParentTask;
 import com.fse.model.Task;
+import com.fse.model.User;
 import com.fse.service.impl.TaskServiceImpl;
 
 
@@ -72,6 +73,30 @@ public class TaskServiceImplTest {
 		List<ParentTask> output=	parentTaskDao.findAll();
 		Assert.assertNotNull(output);
 	}
+	
+	@Test
+	 public void testgetAllTaskOrderByPriority() {
+		 List<Task> output =taskServiceImpl.getAllTaskOrderByPriority();
+		 Assert.assertNotNull(output);
+	 }
+	
+	@Test
+	 public void testgetAllTaskOrderByStartDate() {
+		 List<Task> output =taskServiceImpl.getAllTaskOrderByStartDate();
+		 Assert.assertNotNull(output);
+	 }
+	
+	@Test
+	 public void testgetAllTaskOrderByEndDate() {
+		 List<Task> output =taskServiceImpl.getAllTaskOrderByEndDate();
+		 Assert.assertNotNull(output);
+	 }
+	
+	@Test
+	 public void testgetAllTaskOrderByStatus() {
+		 List<Task> output =taskServiceImpl.getAllTaskOrderByStatus();
+		 Assert.assertNotNull(output);
+	 }
 	
 }
 

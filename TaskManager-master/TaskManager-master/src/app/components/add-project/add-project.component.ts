@@ -23,8 +23,13 @@ export class AddProjectComponent implements OnInit {
 
   ngOnInit() {
     this.project= this._taskService.getproject();
+    this.project.startDate= new Date();
+    this.project.startDate.setDate(this.project.startDate.getDate() + 1);
+    this.project.endDate= new Date();
+    this.project.endDate.setDate(this.project.endDate.getDate() + 1);
+
     this.modalOpened=false;
-    this.dateCheck = false;
+    
     this._taskService.getAllUser().subscribe((res) => {
       this.users = res;
     },(error) => {
@@ -32,16 +37,46 @@ export class AddProjectComponent implements OnInit {
     });
     this._taskService.getAllProject().subscribe((p) => {
       this.projects=p;
-      console.log(this.projects)
+      this.projects.forEach(project=>{
+        this._taskService.countTaskByProject(project.projectId).subscribe((p) => {
+          project['noofTask']=p;
+        });
+        this._taskService.countCompleted(project.projectId).subscribe((p) => {
+          project['noofCompleted']=p;
+        });
+      });
+     
      });
   }
 
   addProject(){
-    console.log(this.project);
+   
     this._taskService.addProject(this.project).subscribe((res) => {
+      console.log(res['projectId']);
+      this._taskService.findUser(this.selectedUser).subscribe((user) => {
+        if(user['projectId']==0){
+          user['projectId'] = res['projectId']
+        }
+        else{
+          user['userId'] = 0;
+          user['projectId'] = res['projectId']
+        }
+        
+        this._taskService.addUser(user).subscribe((res) => {
+
+        });
+       });
+
       this._taskService.getAllProject().subscribe((p) => {
         this.projects=p;
-        
+        this.projects.forEach(project=>{
+          this._taskService.countTaskByProject(project.projectId).subscribe((p) => {
+            project['noofTask']=p;
+          });
+          this._taskService.countCompleted(project.projectId).subscribe((p) => {
+            project['noofCompleted']=p;
+          });
+        });
        });
      
   });
@@ -49,7 +84,14 @@ export class AddProjectComponent implements OnInit {
 editProject(project) {
   console.log(project)
   this._taskService.setProject(project);
+  this.project.project=project.project;
+  this.project.endDate=project.endDate;
+  this.project.startDate=project.startDate;
+  this.project.priority=project.priority;
+  this.dateCheck=true;
+  this.project.projectId=project.projectId;
   
+
 }
   openModal() {
     const modalRef = this.modalService.open(ModalContentComponent);
@@ -71,20 +113,41 @@ editProject(project) {
   orderByPriority(){
     this._taskService.getAllProjectOrderByPriority().subscribe((p) => {
       this.projects=p;
-     
+      this.projects.forEach(project=>{
+        this._taskService.countTaskByProject(project.projectId).subscribe((p) => {
+          project['noofTask']=p;
+        });
+        this._taskService.countCompleted(project.projectId).subscribe((p) => {
+          project['noofCompleted']=p;
+        });
+      });
      });
   }
   orderByStartDate(){
     this._taskService.getAllProjectOrderByStartDate().subscribe((p) => {
       this.projects=p;
-     
+      this.projects.forEach(project=>{
+        this._taskService.countTaskByProject(project.projectId).subscribe((p) => {
+          project['noofTask']=p;
+        });
+        this._taskService.countCompleted(project.projectId).subscribe((p) => {
+          project['noofCompleted']=p;
+        });
+      });
      });
   }
 
   orderByEndDate(){
     this._taskService.getAllProjectOrderByEndDate().subscribe((p) => {
       this.projects=p;
-     
+      this.projects.forEach(project=>{
+        this._taskService.countTaskByProject(project.projectId).subscribe((p) => {
+          project['noofTask']=p;
+        });
+        this._taskService.countCompleted(project.projectId).subscribe((p) => {
+          project['noofCompleted']=p;
+        });
+      });
      });
   }
 }

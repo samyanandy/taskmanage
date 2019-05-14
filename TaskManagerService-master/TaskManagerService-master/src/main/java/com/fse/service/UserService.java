@@ -3,11 +3,15 @@ package com.fse.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
+
 import com.fse.model.User;
 
 public interface UserService {
 
 	public List<User> getAllUser();
+	
+	public List<User> findDistinctUser();
 	
 	public boolean addUser(User user);
 	

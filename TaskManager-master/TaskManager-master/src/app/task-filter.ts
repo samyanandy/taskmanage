@@ -1,6 +1,6 @@
 
 import { Pipe, PipeTransform,Injectable  } from '@angular/core';
-import { DatePipe } from '@angular/common'; 
+
 
 @Pipe({
     name: 'taskFilter'

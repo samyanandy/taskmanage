@@ -1,5 +1,6 @@
 package com.fse.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +67,14 @@ public class UserServiceImpl implements UserService{
 	public List<User> getAllUserOrderByEmployeeIdAsc() {
 		// TODO Auto-generated method stub
 		return userDao.findAllByOrderByEmployeeIdAsc();
+	}
+
+	@Override
+	public List<User> findDistinctUser() {
+		// TODO Auto-generated method stub
+		ArrayList userList = userDao.findDistinctUser();
+		
+		return userList;
 	}
 
 }

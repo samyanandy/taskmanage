@@ -1,10 +1,10 @@
 export class ParentTask{
     parentId : number;
-    prntTask : String;
+    parentTask : String;
 
     constructor(){
         this.parentId=0;
-        this.prntTask='';
+        this.parentTask='';
     }
     
 

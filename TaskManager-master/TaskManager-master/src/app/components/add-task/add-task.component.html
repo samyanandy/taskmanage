@@ -1,25 +1,83 @@
 
 <div class="container">
 <form #myform="ngForm" >
-    <label for="task"><b>Task</b></label>
-    <input class="form-control" type="text" placeholder="Add Task" name="task" [(ngModel)]="task.task" required>
+    <div class="row">
+        <div class="col-sm-2"> 
+          <label for="project" style="margin-top: 10px;"><b>Project</b></label>
+        </div>
+        <div class="col-sm-8" > 
+           <input class="form-control" type="text" placeholder="Select Project" name="project" [(ngModel)]="task.project.project" disabled>
+        </div>
+        <div class="col-sm-2"> 
+            <input type="submit" value="Search" style="margin-top: 10px;" (click)="openProjectModal()">
+        </div>
 
-    <label for="priority"><b>Priority</b></label> 
-    <p style="padding: 10px;font-size: 13px;">{{task.priority}}</p>
-    <input type="range" min="1" max="30" value="1" class="slider" name="priority" [(ngModel)]="task.priority" required>
-    
-    <label for="prntTask"><b>Parent Task</b></label>
-  
-    <input   class="form-control" type="text" placeholder="Enter Parent Task" name="parentTask" [(ngModel)]="task.parent.parentTask" required> 
-    
-<div class="form-group">
-    <label for="strtDate"><b>Start Date</b></label>
-    <input class="form-control" type="date" placeholder="start date" name="strtDate" [(ngModel)]="task.startDate" required>
   </div>
-  <div class="form-group">
-    <label for="endDate"><b>End Date</b></label>
-    <input class="form-control" type="date" placeholder="end date" name="endDate" [(ngModel)]="task.endDate" required>
+  <div class="row">
+      <div class="col-sm-2"> 
+          <label for="task" style="margin-top: 10px;"><b>Task</b></label>
+        </div>
+        <div class="col-sm-10" > 
+            <input class="form-control" type="text" placeholder="Add Task" name="task" [(ngModel)]="task.task" required>
+          </div>
   </div>
+  <div class="row">
+        <div class="col-sm-6" style="margin: 20px 0 20px 0;">
+                <input type="checkbox" name="prnt" value="Yes" [(ngModel)]="isParent"> Parent Task<br>
+        </div>
+  </div>
+  <div class="row" style="margin-top : 3px;">
+      <div class="col-sm-2">
+          <label for="priority"><b>Priority</b></label>
+      </div>
+      <div class="col-sm-8">
+
+          <input type="range" min="1" max="30" value="1" class="slider" name="priority" [(ngModel)]="task.priority" required [disabled]="isParent">
+                    </div>
+        <div class="col-sm-2">
+            <p style="padding: 10px;font-size: 13px;">{{task.priority}}</p>
+        </div>
+    </div>
+   <div class="row">
+      <div class="col-sm-2">
+          <label for="prntTask"><b>Parent Task</b></label>
+      </div>
+      <div class="col-sm-8">
+          <!-- <input   class"form-control" type="text" placeholder="Enter Parent Task" name="parentTask" [(ngModel)]="task.parent.parentTask" required [disabled]="isParent">  -->
+          <select class="form-control" name="userid" [(ngModel)]="task.parent.parentId" [disabled]="isParent">
+                <option [value]="pt.parentId" *ngFor="let pt of parentTasks">{{pt.parentTask}}</option>
+              </select>
+      </div>
+      <!-- <div class="col-sm-2">
+          <input type="submit" value="Search" style="margin-top: 10px;" (click)="openModal()">
+
+      </div> -->
+   </div>
+    
+  <div class="row">
+      <div class="col-sm-6"> 
+          <label for="task"><b>Start Date</b></label>
+          <input type="date" name="startDate" [ngModel] ="task.startDate | date:'yyyy-MM-dd'" (ngModelChange)="task.startDate = $event" [disabled]="isParent">
+        </div>
+      <div class="col-sm-6" >
+          <label for="task"><b>End Date</b></label>
+          <!-- <input class="form-control" type="date" placeholder="start date" name="endDate" [(ngModel)]="task.endDate" required [disabled]="isParent"> -->
+          <input type="date" name="endDate" [ngModel] ="task.endDate | date:'yyyy-MM-dd'" (ngModelChange)="task.endDate = $event" [disabled]="isParent">
+
+        </div>
+     </div>
+<div class="row">
+    <div class="col-sm-2"> 
+        <label for="task"><b>User</b></label>
+    </div>
+    <div class="col-sm-8">
+        <input class="form-control" type="text" placeholder="Select User" name="user" [(ngModel)]="user" disabled>
+    </div>
+    <div class="col-sm-2">
+        <input type="submit" value="Search" style="margin-top: 10px;" (click)="openUserModal()">
+    </div>
+</div>
+ 
     <hr>
    
     <input type="submit" value="Add Task" (click)="addTask()">

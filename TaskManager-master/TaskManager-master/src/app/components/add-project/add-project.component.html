@@ -14,11 +14,14 @@
           </div>
           <div class="col-sm-3" [hidden]="!dateCheck"> 
               <label for="task"><b>Start Date</b></label>
-              <input class="form-control" type="date" placeholder="start date" name="strtDate" [(ngModel)]="project.startDate" required>
+              <!-- <input class="form-control" type="date" placeholder="start date" name="strtDate" [(ngModel)]="project.startDate" required> -->
+              <input type="date" name="startDate" [ngModel] ="project.startDate | date:'yyyy-MM-dd'" (ngModelChange)="project.startDate = $event">
             </div>
           <div class="col-sm-3" [hidden]="!dateCheck">
               <label for="task"><b>End Date</b></label>
-              <input class="form-control" type="date" placeholder="start date" name="endDate" [(ngModel)]="project.endDate" required>
+              <!-- <input class="form-control" type="date" placeholder="start date" name="endDate" [(ngModel)]="project.endDate" required> -->
+              <input type="date" name="endDate" [ngModel] ="project.endDate | date:'yyyy-MM-dd'" (ngModelChange)="project.endDate = $event">
+
             </div>
         </div>
       <div class="row" style="margin : 3px;">
@@ -59,7 +62,7 @@
   <hr>
   <div class="row" style="margin : 3px;">
       <div class="col-sm-10">
-          <input class="form-control" type="text" placeholder="Search" name="search" required>
+          <input class="form-control" type="text" placeholder="Search" name="search" [(ngModel)]="projectSrch" required>
       </div>
       
     </div>
@@ -82,15 +85,15 @@
     </div>
     <hr class="dot">
     <ul class="list-group">
-            <li class="list-group-item" *ngFor="let project of projects">
+            <li class="list-group-item" *ngFor="let project of projects | searchFilter:'project,startDate,endDate,priority':projectSrch">
                     <div class="row">
                     <div class="col-sm-10 rowColor" > <span><b>Project :</b> {{project.project}}</span></div>
                     <div class="col-sm-2"><input type="submit"  value="Edit" (click)="editProject(project)" style="margin-bottom:3px;"></div>
                     </div>
                     <div class="row">
                            
-                        <div class="col-sm-5 rowColor"> <span><b>No Of Tasks :</b> </span></div>
-                        <div class="col-sm-5 rowColor"><span><b>Completed :</b> </span></div>
+                        <div class="col-sm-5 rowColor"> <span><b>No Of Tasks :</b> {{project.noofTask}} </span></div>
+                        <div class="col-sm-5 rowColor"><span><b>Completed : </b> {{project.noofCompleted}} </span></div>
                         <div class="col-sm-2"><input type="submit" value="Delete" (click)="deleteproject(project)"></div>
        
                     </div>
